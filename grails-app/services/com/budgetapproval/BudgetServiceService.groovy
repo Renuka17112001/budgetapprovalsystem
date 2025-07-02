@@ -40,7 +40,7 @@ class BudgetService {
                 status: RequestStatus.PENDING
         )
         req.save(flush: true, failOnError: true)
-        req.refresh() // ✅ Ensures timestamps and associations are populated
+        req.refresh() 
 
         logAudit('CREATE', req.id, 'BudgetRequest', null, req.toString(), requester)
 
@@ -78,18 +78,18 @@ class BudgetService {
         logAudit('UPDATE', dept.id, 'Department', oldBudget.toString(), dept.currentBudget.toString(), manager)
 
         sendEmail(req.requestedBy, "Budget Approved", """
-Hello ${req.requestedBy},
-
-Your budget request has been approved.
-
-Details:
-- Purpose: ${req.purpose}
-- Amount: ${req.requestedAmount}
-- Approved by: ${manager}
-
-Regards,
-Budget Approval System
-""")
+            Hello ${req.requestedBy},
+            
+            Your budget request has been approved.
+            
+            Details:
+            - Purpose: ${req.purpose}
+            - Amount: ${req.requestedAmount}
+            - Approved by: ${manager}
+            
+            Regards,
+            Budget Approval System
+            """)
 
         return req
     }
@@ -99,7 +99,7 @@ Budget Approval System
         def req = BudgetRequest.get(id)
         if (!req) throw new IllegalArgumentException("Invalid request ID")
 
-        println "Rejecting request #$id with current status: ${req.status}" // ✅ Add this log
+        println "Rejecting request #$id with current status: ${req.status}"
 
         if (req.status != RequestStatus.PENDING) {
             throw new IllegalStateException("Request status must be PENDING to reject. Current: ${req.status}")
@@ -112,19 +112,19 @@ Budget Approval System
         logAudit('REJECT', req.id, 'BudgetRequest', RequestStatus.PENDING.name(), RequestStatus.REJECTED.name(), approver)
 
         sendEmail(req.requestedBy, "Budget Rejected", """
-Hello ${req.requestedBy},
-
-Your budget request has been rejected.
-
-Details:
-- Purpose: ${req.purpose}
-- Amount: ${req.requestedAmount}
-- Rejected by: ${approver}
-- Reason: ${reason}
-
-Regards,
-Budget Approval System
-""")
+            Hello ${req.requestedBy},
+            
+            Your budget request has been rejected.
+            
+            Details:
+            - Purpose: ${req.purpose}
+            - Amount: ${req.requestedAmount}
+            - Rejected by: ${approver}
+            - Reason: ${reason}
+            
+            Regards,
+            Budget Approval System
+            """)
         return req
     }
 
