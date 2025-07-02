@@ -85,9 +85,7 @@ API is available at: `http://localhost:8080`
 
 API Endpoints:
 
-1. POST `/api/budget-request`
-
-Submit a new budget request
+1. POST `/api/budget-request` -> Submit a new budget request
 
 
 {
@@ -100,29 +98,21 @@ Submit a new budget request
 
 
 
-2. PUT `/api/budget-request/{id}/approve`
-
-Approve the request with given ID.
+2. PUT `/api/budget-request/{id}/approve` -> Approve the request with given ID.
 
 
 
-3. PUT `/api/budget-request/{id}/reject`
-
-Reject a request with a reason:
+3. PUT `/api/budget-request/{id}/reject` ->  Reject a request with a reason:
 
 {
   "reason": "Exceeded monthly limit"
 }
 
 
-4. GET `/api/budget-request/pending`
-
-Returns all pending requests.
+4. GET `/api/budget-request/pending`   -> Returns all pending requests.
 
 
-5. GET `/api/audit-logs?entityType=BudgetRequest`
-
-View Audit logs.
+5. GET `/api/audit-logs?entityType=BudgetRequest`  ->  View Audit logs.
 
 
 
